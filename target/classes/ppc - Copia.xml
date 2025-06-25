@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curso nome="Engenharia de Computacao">
+  <disciplina>
+    <semestre>1</semestre>
+    <ordem>1</ordem>
+    <nome>Elementos de Matemática</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>1</semestre>
+    <ordem>2</ordem>
+    <nome>Química Geral Básica</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>1</semestre>
+    <ordem>3</ordem>
+    <nome>Elementos de Física</nome>
+    <cargaHoraria>30</cargaHoraria>
+    <creditos>2</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>1</semestre>
+    <ordem>4</ordem>
+    <nome>Fundamentos de Hardware e Software</nome>
+    <cargaHoraria>90</cargaHoraria>
+    <creditos>6</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>1</semestre>
+    <ordem>5</ordem>
+    <nome>Introdução a Engenharia de Computação</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>1</semestre>
+    <ordem>6</ordem>
+    <nome>Gestão de Projetos I</nome>
+    <cargaHoraria>30</cargaHoraria>
+    <creditos>2</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+
+  <disciplina>
+    <semestre>2</semestre>
+    <ordem>7</ordem>
+    <nome>Cálculo A</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>2</semestre>
+    <ordem>8</ordem>
+    <nome>Álgebra Linear e Geometria Analítica</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>2</semestre>
+    <ordem>9</ordem>
+    <nome>Produção Acadêmico-Científica</nome>
+    <cargaHoraria>30</cargaHoraria>
+    <creditos>2</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>2</semestre>
+    <ordem>10</ordem>
+    <nome>Algoritmos e Técnicas de Programação</nome>
+    <cargaHoraria>90</cargaHoraria>
+    <creditos>6</creditos>
+    <preRequisitos>Fundamentos de Hardware e Software</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>2</semestre>
+    <ordem>11</ordem>
+    <nome>Projeto Digital I</nome>
+    <cargaHoraria>90</cargaHoraria>
+    <creditos>6</creditos>
+    <preRequisitos>Fundamentos de Hardware e Software</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>2</semestre>
+    <ordem>12</ordem>
+    <nome>Projeto Integrador I</nome>
+    <cargaHoraria>30</cargaHoraria>
+    <creditos>2</creditos>
+    <preRequisitos>Introdução a Engenharia de Computação</preRequisitos>
+  </disciplina>
+
+  <disciplina>
+    <semestre>3</semestre>
+    <ordem>13</ordem>
+    <nome>Cálculo B</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Cálculo A</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>3</semestre>
+    <ordem>14</ordem>
+    <nome>Estatística Básica</nome>
+    <cargaHoraria>30</cargaHoraria>
+    <creditos>2</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>3</semestre>
+    <ordem>15</ordem>
+    <nome>Fundamentos de Física A</nome>
+    <cargaHoraria>75</cargaHoraria>
+    <creditos>5</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>3</semestre>
+    <ordem>16</ordem>
+    <nome>Algoritmos e Estrutura de Dados</nome>
+    <cargaHoraria>90</cargaHoraria>
+    <creditos>6</creditos>
+    <preRequisitos>Algoritmos e Técnicas de Programação</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>3</semestre>
+    <ordem>17</ordem>
+    <nome>Arquitetura e Organização de Computadores</nome>
+    <cargaHoraria>90</cargaHoraria>
+    <creditos>6</creditos>
+    <preRequisitos>Fundamentos de Hardware e Software</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>3</semestre>
+    <ordem>18</ordem>
+    <nome>Projeto Integrador II</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Projeto Digital I - Projeto Integrador I</preRequisitos>
+  </disciplina>
+
+  <disciplina>
+    <semestre>4</semestre>
+    <ordem>19</ordem>
+    <nome>Equações Diferenciais Ordinárias</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Cálculo B</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>4</semestre>
+    <ordem>20</ordem>
+    <nome>Probabilidade</nome>
+    <cargaHoraria>30</cargaHoraria>
+    <creditos>2</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>4</semestre>
+    <ordem>21</ordem>
+    <nome>Fundamentos de Física B</nome>
+    <cargaHoraria>75</cargaHoraria>
+    <creditos>5</creditos>
+    <preRequisitos>Fundamentos de Física A</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>4</semestre>
+    <ordem>22</ordem>
+    <nome>Algoritmos e Classificação de Dados</nome>
+    <cargaHoraria>75</cargaHoraria>
+    <creditos>5</creditos>
+    <preRequisitos>Algoritmos e Estrutura de Dados</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>4</semestre>
+    <ordem>23</ordem>
+    <nome>Projeto Digital II</nome>
+    <cargaHoraria>90</cargaHoraria>
+    <creditos>6</creditos>
+    <preRequisitos>Projeto Digital I</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>4</semestre>
+    <ordem>24</ordem>
+    <nome>Projeto Integrador III</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Projeto Integrador II</preRequisitos>
+  </disciplina>
+
+  <disciplina>
+    <semestre>5</semestre>
+    <ordem>25</ordem>
+    <nome>Circuitos Elétricos I</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Álgebra Linear e Geometria Analítica - Fundamentos de Física B</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>5</semestre>
+    <ordem>26</ordem>
+    <nome>Mecânica Geral</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Álgebra Linear e Geometria Analítica - Fundamentos de Física A</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>5</semestre>
+    <ordem>27</ordem>
+    <nome>Teoria da Computação</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Algoritmos e Classificação de Dados</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>5</semestre>
+    <ordem>28</ordem>
+    <nome>Sistemas Operacionais</nome>
+    <cargaHoraria>90</cargaHoraria>
+    <creditos>6</creditos>
+    <preRequisitos>Arquitetura e Organização de Computadores - Algoritmos e Classificação de Dados</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>5</semestre>
+    <ordem>29</ordem>
+    <nome>Engenharia de Software</nome>
+    <cargaHoraria>75</cargaHoraria>
+    <creditos>5</creditos>
+    <preRequisitos>Algoritmos e Classificação de Dados</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>5</semestre>
+    <ordem>30</ordem>
+    <nome>Projeto Integrador IV</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Projeto Integrador III</preRequisitos>
+  </disciplina>
+
+  <disciplina>
+    <semestre>6</semestre>
+    <ordem>31</ordem>
+    <nome>Eletricidade Aplicada</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Fundamentos de Física B</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>6</semestre>
+    <ordem>32</ordem>
+    <nome>Ciências do Ambiente</nome>
+    <cargaHoraria>30</cargaHoraria>
+    <creditos>2</creditos>
+    <preRequisitos>Química Geral Básica</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>6</semestre>
+    <ordem>33</ordem>
+    <nome>Problemas e Algoritmos</nome>
+    <cargaHoraria>75</cargaHoraria>
+    <creditos>5</creditos>
+    <preRequisitos>Algoritmos e Estrutura de Dados - Probabilidade</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>6</semestre>
+    <ordem>34</ordem>
+    <nome>Sistemas Embarcados</nome>
+    <cargaHoraria>90</cargaHoraria>
+    <creditos>6</creditos>
+    <preRequisitos>Projeto Digital II - Sistemas Operacionais - Engenharia de Software</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>6</semestre>
+    <ordem>35</ordem>
+    <nome>Fundamentos e Avaliação de Redes de Computadores</nome>
+    <cargaHoraria>90</cargaHoraria>
+    <creditos>6</creditos>
+    <preRequisitos>Sistemas Operacionais</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>6</semestre>
+    <ordem>36</ordem>
+    <nome>Projeto Integrador V</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Projeto Integrador IV</preRequisitos>
+  </disciplina>
+
+  <disciplina>
+    <semestre>7</semestre>
+    <ordem>37</ordem>
+    <nome>Fenômenos de Transporte A</nome>
+    <cargaHoraria>45</cargaHoraria>
+    <creditos>3</creditos>
+    <preRequisitos>Equações Diferenciais Ordinárias - Fundamentos de Física B</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>7</semestre>
+    <ordem>38</ordem>
+    <nome>Introdução à Economia para Engenheiros</nome>
+    <cargaHoraria>30</cargaHoraria>
+    <creditos>2</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>7</semestre>
+    <ordem>39</ordem>
+    <nome>Práticas Extensionistas I</nome>
+    <cargaHoraria>120</cargaHoraria>
+    <creditos>8</creditos>
+    <preRequisitos>Teoria da Computação - Sistemas Operacionais - Engenharia de Software - Projeto Integrador IV</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>7</semestre>
+    <ordem>40</ordem>
+    <nome>Projeto de Pesquisa em Engenharia de Computação</nome>
+    <cargaHoraria>45</cargaHoraria>
+    <creditos>3</creditos>
+    <preRequisitos>Produção Acadêmico-Científica - Estatística Básica - Probabilidade - Circuitos Elétricos I - Sistemas Operacionais</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>7</semestre>
+    <ordem>41</ordem>
+    <nome>Ciência de Dados</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Algoritmos e Estrutura de Dados - Probabilidade</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>7</semestre>
+    <ordem>42</ordem>
+    <nome>Inteligência Artificial</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Cálculo B - Estatística Básica - Probabilidade - Algoritmos e Classificação de Dados - Problemas e Algoritmos</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>7</semestre>
+    <ordem>43</ordem>
+    <nome>CCCG</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+
+  <disciplina>
+    <semestre>8</semestre>
+    <ordem>44</ordem>
+    <nome>Fundamentos de Ciência dos Materiais</nome>
+    <cargaHoraria>30</cargaHoraria>
+    <creditos>2</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>8</semestre>
+    <ordem>45</ordem>
+    <nome>Práticas Extensionistas II</nome>
+    <cargaHoraria>180</cargaHoraria>
+    <creditos>12</creditos>
+    <preRequisitos>Práticas Extensionistas I</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>8</semestre>
+    <ordem>46</ordem>
+    <nome>Projeto Final de Curso I</nome>
+    <cargaHoraria>90</cargaHoraria>
+    <creditos>6</creditos>
+    <preRequisitos>Projeto de Pesquisa em Engenharia de Computação</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>8</semestre>
+    <ordem>47</ordem>
+    <nome>CCCG</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>8</semestre>
+    <ordem>48</ordem>
+    <nome>Empreendedorismo e Inovação</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+
+  <disciplina>
+    <semestre>9</semestre>
+    <ordem>49</ordem>
+    <nome>Projeto Final de Curso II</nome>
+    <cargaHoraria>90</cargaHoraria>
+    <creditos>6</creditos>
+    <preRequisitos>Projeto Final de Curso I</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>9</semestre>
+    <ordem>50</ordem>
+    <nome>UNIPAMPA Cidadã</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>9</semestre>
+    <ordem>51</ordem>
+    <nome>CCCG</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+
+  <disciplina>
+    <semestre>10</semestre>
+    <ordem>52</ordem>
+    <nome>Estágio Curricular Supervisionado</nome>
+    <cargaHoraria>180</cargaHoraria>
+    <creditos>12</creditos>
+    <preRequisitos>Projeto Final de Curso I</preRequisitos>
+  </disciplina>
+  <disciplina>
+    <semestre>10</semestre>
+    <ordem>53</ordem>
+    <nome>ACG</nome>
+    <cargaHoraria>75</cargaHoraria>
+    <creditos>5</creditos>
+    <preRequisitos></preRequisitos>
+  </disciplina>
+</curso>
+
+
+<disciplinasCCCG>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>1</ordem>
+    <nome>Introdução à Comunicação Móvel</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>2</ordem>
+    <nome>Instrumentação Industrial</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>3</ordem>
+    <nome>Matemática Discreta</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>4</ordem>
+    <nome>Tópicos Especiais em Computação</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos></preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>5</ordem>
+    <nome>Deep Learning</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Fundamentos de Hardware e Software</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>6</ordem>
+    <nome>Mineração de Dados</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Fundamentos de Hardware e Software</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>7</ordem>
+    <nome>Lógica para Computação</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Algoritmos e Estrutura de Dados</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>8</ordem>
+    <nome>Linguagens Formais</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Algoritmos e Classificação de Dados</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>9</ordem>
+    <nome>Ferramentas de CAD</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Projeto Digital I - Algoritmos e Classificação de Dados</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>10</ordem>
+    <nome>Desenvolvimento de Software Livre</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Algoritmos e Classificação de Dados</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>11</ordem>
+    <nome>Processamento Digital de Sinais</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Fundamentos de Física B - Algoritmos e Técnicas de Programação - Equações Diferenciais Ordinárias</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>12</ordem>
+    <nome>Técnicas e Projeto Aplicado de Sistemas Digitais VLSI</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Projeto Digital II</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>13</ordem>
+    <nome>Concepção de Circuitos Integrados</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Projeto Digital II</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>14</ordem>
+    <nome>Desafios de Programação</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Problemas e Algoritmos</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>15</ordem>
+    <nome>Informática na Educação</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Engenharia de Software</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>16</ordem>
+    <nome>Segurança da Informação e Cibersegurança</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Fundamentos e Avaliação de Redes de Computadores</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+  <disciplina>
+    <semestre>CCCG</semestre>
+    <ordem>17</ordem>
+    <nome>Processamento Paralelo e Distribuído</nome>
+    <cargaHoraria>60</cargaHoraria>
+    <creditos>4</creditos>
+    <preRequisitos>Fundamentos e Avaliação de Redes de Computadores</preRequisitos>
+    <isCCCG>true</isCCCG>
+  </disciplina>
+</disciplinasCCCG>
