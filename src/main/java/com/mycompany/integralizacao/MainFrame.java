@@ -164,7 +164,6 @@ public class MainFrame extends JFrame {
             }
         });
 
-        // --- MUDANÇA: Painel de botões agora tem um novo botão ---
         JPanel botoesPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         JButton progressoBtn = new JButton("Ver Progresso");
         progressoBtn.addActionListener(e -> mostrarProgresso());
@@ -241,8 +240,7 @@ public class MainFrame extends JFrame {
         
         JOptionPane.showMessageDialog(this, msg.toString());
     }
-    
-    // --- MUDANÇA: Novo método para salvar o relatório ---
+
     private void salvarRelatorio() {
         // 1. Pergunta o nome do aluno
         String nomeAluno = JOptionPane.showInputDialog(this, "Digite o nome do(a) aluno(a):", "Salvar Relatório", JOptionPane.PLAIN_MESSAGE);
@@ -250,10 +248,8 @@ public class MainFrame extends JFrame {
             return; // Usuário cancelou ou não digitou nada
         }
 
-        // 2. Calcula as disciplinas disponíveis
         List<Disciplina> disponiveis = DisciplinaUtils.verificarDisciplinasDisponiveis(cursoAtual.getDisciplinas(), disciplinasCursadas);
         
-        // 3. Monta o conteúdo do arquivo
         StringBuilder conteudoArquivo = new StringBuilder();
         conteudoArquivo.append("Aluno(a): ").append(nomeAluno.trim()).append("\n");
         conteudoArquivo.append("Curso: ").append(cursoAtual.getNome()).append("\n\n");
@@ -268,17 +264,14 @@ public class MainFrame extends JFrame {
             }
         }
         
-        // 4. Abre a janela de "Salvar como..."
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Salvar Relatório de Disciplinas");
-        // Sugere um nome de arquivo padrão
         fileChooser.setSelectedFile(new File(nomeAluno.trim().replace(" ", "_") + "_disciplinas.txt"));
 
         int userSelection = fileChooser.showSaveDialog(this);
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File arquivoParaSalvar = fileChooser.getSelectedFile();
-            // 5. Escreve o conteúdo no arquivo
             try (FileWriter writer = new FileWriter(arquivoParaSalvar)) {
                 writer.write(conteudoArquivo.toString());
                 JOptionPane.showMessageDialog(this, "Relatório salvo com sucesso em:\n" + arquivoParaSalvar.getAbsolutePath(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);

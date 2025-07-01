@@ -19,21 +19,14 @@ public class PPCParser {
             Document doc = dBuilder.parse(arquivo);
             doc.getDocumentElement().normalize();
 
-            // --- MUDANÇA 1: Lendo o nome do curso da tag <curso> ---
-            // Procura pela tag <curso> no documento
             NodeList cursoNodeList = doc.getElementsByTagName("curso");
             if (cursoNodeList.getLength() > 0) {
-                // Pega o primeiro elemento <curso> encontrado
                 Element cursoElement = (Element) cursoNodeList.item(0);
-                // Pega o atributo "nome" deste elemento
                 curso.setNome(cursoElement.getAttribute("nome"));
             } else {
-                // Se não encontrar a tag <curso>, define um nome padrão ou lança um erro
                 curso.setNome("Nome do Curso não encontrado");
             }
 
-            // A busca por todas as disciplinas continua igual, pois getElementsByTagName
-            // pega todas as tags "disciplina" não importa onde estejam no arquivo.
             NodeList listaDisciplinas = doc.getElementsByTagName("disciplina");
 
             for (int i = 0; i < listaDisciplinas.getLength(); i++) {
@@ -42,14 +35,11 @@ public class PPCParser {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element elem = (Element) node;
                     
-                    // --- MUDANÇA 2: Tratamento especial para o semestre ---
                     String semestreStr = elem.getElementsByTagName("semestre").item(0).getTextContent();
                     int semestre;
                     if (semestreStr.equalsIgnoreCase("CCCG")) {
-                        // Atribui um valor numérico (ex: 0) para representar o semestre CCCG
                         semestre = 0;
                     } else {
-                        // Se não for "CCCG", converte para número como antes
                         semestre = Integer.parseInt(semestreStr);
                     }
                     
@@ -59,7 +49,6 @@ public class PPCParser {
                     int creditos = Integer.parseInt(elem.getElementsByTagName("creditos").item(0).getTextContent());
 
                     String preReqStr = elem.getElementsByTagName("preRequisitos").item(0).getTextContent();
-                    // Garante que a lista não seja nula mesmo se a tag estiver vazia
                     List<String> preReqs = preReqStr.isEmpty() ? Collections.emptyList() : Arrays.asList(preReqStr.split(" - "));
 
                     boolean isCCCG = false;
@@ -73,7 +62,6 @@ public class PPCParser {
                 }
             }
         } catch (Exception e) {
-            // A lógica de lançar um erro claro para a interface continua a mesma
             throw new Exception("Falha ao ler o arquivo PPC. Verifique se o formato do XML está correto.", e);
         }
         return curso;
