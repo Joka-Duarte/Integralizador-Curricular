@@ -4,7 +4,6 @@ package com.mycompany.integralizacao;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-// --- MUDANÇA: Importações necessárias para salvar arquivos ---
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
