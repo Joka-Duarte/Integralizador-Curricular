@@ -14,9 +14,11 @@ public class Disciplina {
 
     public Disciplina(int semestre, int ordem, String nome, int cargaHoraria, int creditos, List<String> preRequisitos) {
         this(semestre, ordem, nome, cargaHoraria, creditos, preRequisitos, false);
+        this.isCCCG = false;
     }
 
     public Disciplina(int semestre, int ordem, String nome, int cargaHoraria, int creditos, List<String> preRequisitos, boolean isCCCG) {
+        this.isCCCG = false;
         this.semestre = semestre;
         this.ordem = ordem;
         this.nome = nome;

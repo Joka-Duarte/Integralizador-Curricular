@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Curso {
     private String nome;
-    private List<Disciplina> disciplinas;
+    private final List<Disciplina> disciplinas;
 
     public Curso() {
         disciplinas = new ArrayList<>();
