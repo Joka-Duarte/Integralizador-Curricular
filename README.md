@@ -2,7 +2,7 @@
 
 Aplicação de desktop em Java/Swing para auxiliar estudantes no planejamento da sua grade curricular. O programa visualiza o PPC de um curso, valida pré-requisitos em tempo real e acompanha o progresso do aluno.
 
-Principais Funcionalidades
+## Principais Funcionalidades
 
     Carrega a grade curricular de um arquivo XML customizado.
 
