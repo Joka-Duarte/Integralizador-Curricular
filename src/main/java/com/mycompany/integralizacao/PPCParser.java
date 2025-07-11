@@ -4,9 +4,7 @@ package com.mycompany.integralizacao;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
-import org.xml.sax.SAXException;
 
 public class PPCParser {
 
@@ -57,7 +55,13 @@ public class PPCParser {
                         isCCCG = Boolean.parseBoolean(ccNodes.item(0).getTextContent());
                     }
 
-                    Disciplina d = new Disciplina(semestre, ordem, nome, carga, creditos, preReqs, isCCCG);
+                    boolean isOutraAtividade = false;
+                    NodeList oaNodes = elem.getElementsByTagName("isOutraAtividade");
+                    if (oaNodes.getLength() > 0) {
+                        isOutraAtividade = Boolean.parseBoolean(oaNodes.item(0).getTextContent());
+                    }
+                    
+                    Disciplina d = new Disciplina(semestre, ordem, nome, carga, creditos, preReqs, isCCCG, isOutraAtividade);
                     curso.adicionarDisciplina(d);
                 }
             }

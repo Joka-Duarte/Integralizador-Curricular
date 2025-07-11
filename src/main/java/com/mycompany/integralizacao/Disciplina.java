@@ -11,14 +11,10 @@ public class Disciplina {
     private int creditos;
     private List<String> preRequisitos;
     private boolean isCCCG;
+    private boolean isOutraAtividade; // <-- Novo atributo
 
-    public Disciplina(int semestre, int ordem, String nome, int cargaHoraria, int creditos, List<String> preRequisitos) {
-        this(semestre, ordem, nome, cargaHoraria, creditos, preRequisitos, false);
-        this.isCCCG = false;
-    }
-
-    public Disciplina(int semestre, int ordem, String nome, int cargaHoraria, int creditos, List<String> preRequisitos, boolean isCCCG) {
-        this.isCCCG = false;
+    // Construtor principal atualizado
+    public Disciplina(int semestre, int ordem, String nome, int cargaHoraria, int creditos, List<String> preRequisitos, boolean isCCCG, boolean isOutraAtividade) {
         this.semestre = semestre;
         this.ordem = ordem;
         this.nome = nome;
@@ -26,8 +22,15 @@ public class Disciplina {
         this.creditos = creditos;
         this.preRequisitos = preRequisitos;
         this.isCCCG = isCCCG;
+        this.isOutraAtividade = isOutraAtividade;
     }
-
+    
+    // Construtor antigo para manter a compatibilidade
+    public Disciplina(int semestre, int ordem, String nome, int cargaHoraria, int creditos, List<String> preRequisitos, boolean isCCCG) {
+        this(semestre, ordem, nome, cargaHoraria, creditos, preRequisitos, isCCCG, false);
+    }
+    
+    // Getters
     public int getSemestre() { return semestre; }
     public int getOrdem() { return ordem; }
     public String getNome() { return nome; }
@@ -35,6 +38,7 @@ public class Disciplina {
     public int getCreditos() { return creditos; }
     public List<String> getPreRequisitos() { return preRequisitos; }
     public boolean isCCCG() { return isCCCG; }
+    public boolean isOutraAtividade() { return isOutraAtividade; } // <-- Getter para o novo campo
 
     @Override
     public String toString() {

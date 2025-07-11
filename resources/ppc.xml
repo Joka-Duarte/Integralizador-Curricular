@@ -426,7 +426,7 @@
       <preRequisitos></preRequisitos>
     </disciplina>
   </curso>
-  <disciplinasCCCG>
+    <disciplinasCCCG>
     <disciplina>
       <semestre>CCCG</semestre>
       <ordem>1</ordem>
@@ -581,4 +581,32 @@
       <isCCCG>true</isCCCG>
     </disciplina>
   </disciplinasCCCG>
+  <outrasAtividades>
+        <disciplina>
+            <semestre>0</semestre> <ordem>1</ordem>
+            <nome>ENADE</nome>
+            <cargaHoraria>0</cargaHoraria>
+            <creditos>0</creditos>
+            <preRequisitos></preRequisitos>
+            <isOutraAtividade>true</isOutraAtividade>
+        </disciplina>
+        <disciplina>
+            <semestre>0</semestre>
+            <ordem>2</ordem>
+            <nome>Artigo 1 (Publicado)</nome>
+            <cargaHoraria>0</cargaHoraria>
+            <creditos>0</creditos>
+            <preRequisitos></preRequisitos>
+            <isOutraAtividade>true</isOutraAtividade>
+        </disciplina>
+        <disciplina>
+            <semestre>0</semestre>
+            <ordem>3</ordem>
+            <nome>Artigo 2 (Publicado)</nome>
+            <cargaHoraria>0</cargaHoraria>
+            <creditos>0</creditos>
+            <preRequisitos></preRequisitos>
+            <isOutraAtividade>true</isOutraAtividade>
+        </disciplina>
+        </outrasAtividades>
 </gradeCurricular>

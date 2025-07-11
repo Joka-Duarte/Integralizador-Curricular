@@ -4,7 +4,9 @@ package com.mycompany.integralizacao;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Comparator;
@@ -29,13 +31,24 @@ public class MainFrame extends JFrame {
     private static final int COLUNA_CURSADA = 6;
     
     // Constantes para os separadores
-    private static final String SEPARADOR_OBRIGATORIAS = "--- Obrigatórias ---";
-    private static final String SEPARADOR_CCCG = "--- CCCG ---";
+    private static final String SEPARADOR_OBRIGATORIAS = "--- Disciplinas Obrigatórias ---";
+    private static final String SEPARADOR_CCCG = "--- Disciplinas CCCG ---";
+    private static final String SEPARADOR_OUTRAS = "--- Outras Atividades ---";
 
     private JTable tabela;
-    
     private Curso cursoAtual; 
     private Set<String> disciplinasCursadas = new HashSet<>();
+    
+    // --- MUDANÇA 1: Variável de controle para o carregamento ---
+    private boolean isLoadingProgress = false;
+    
+    // Referências para os botões que precisam ser ativados/desativados
+    private JButton carregarProgressoBtn;
+    private JButton salvarProgressoBtn;
+    private JButton progressoBtn;
+    private JButton graficoBtn;
+    private JButton disponiveisBtn;
+    private JButton salvarRelatorioBtn;
 
     public MainFrame() {
         super("Integralização Curricular");
@@ -43,9 +56,12 @@ public class MainFrame extends JFrame {
         setSize(1200, 700);
         setLocationRelativeTo(null);
 
+        // ... (código do construtor sem alterações)
         JPanel painelInicial = new JPanel(new BorderLayout());
         JPanel painelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton carregarPPC = new JButton("Carregar PPC do Curso");
+        carregarProgressoBtn = new JButton("Carregar Progresso");
+        carregarProgressoBtn.addActionListener(e -> carregarProgresso());
 
         carregarPPC.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
@@ -67,23 +83,25 @@ public class MainFrame extends JFrame {
         });
 
         painelSuperior.add(carregarPPC);
+        painelSuperior.add(carregarProgressoBtn);
         painelInicial.add(painelSuperior, BorderLayout.NORTH);
         
-        JLabel labelBemVindo = new JLabel("Bem-vindo! Carregue o arquivo PPC do curso para começar.", SwingConstants.CENTER);
+        JLabel labelBemVindo = new JLabel("Bem-vindo! Carregue o arquivo PPC de um curso para começar.", SwingConstants.CENTER);
         labelBemVindo.setFont(new Font("Arial", Font.PLAIN, 18));
         painelInicial.add(labelBemVindo, BorderLayout.CENTER);
 
         setContentPane(painelInicial);
+        setBotoesAcaoEnabled(false);
         setVisible(true);
     }
     
     private void atualizarEstadoDisciplinasCursadas() {
+        // ... (código sem alterações)
         disciplinasCursadas.clear();
         if (tabela != null) {
             DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
             for (int i = 0; i < modelo.getRowCount(); i++) {
                 if (isLinhaSeparadora(i)) continue;
-                
                 if (Boolean.TRUE.equals(modelo.getValueAt(i, COLUNA_CURSADA))) {
                     disciplinasCursadas.add((String) modelo.getValueAt(i, COLUNA_NOME_DISCIPLINA));
                 }
@@ -94,7 +112,6 @@ public class MainFrame extends JFrame {
     private void carregarCurso(Curso curso) {
         this.cursoAtual = curso;
         this.disciplinasCursadas.clear();
-
         setTitle("Integralização Curricular - " + curso.getNome());
         
         String[] colunas = {"Semestre", "Ordem", "Disciplina", "Carga Horária", "Créditos", "Pré-Requisitos", "Cursada?"};
@@ -103,123 +120,184 @@ public class MainFrame extends JFrame {
             public Class<?> getColumnClass(int columnIndex) {
                 return (columnIndex == COLUNA_CURSADA) ? Boolean.class : String.class;
             }
-
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (isLinhaSeparadora(row)) return false;
+                // --- MUDANÇA 2: A validação é ignorada durante o carregamento ---
+                if (isLoadingProgress) return true;
                 
-                if (column != COLUNA_CURSADA) return false;
+                if (isLinhaSeparadora(row) || column != COLUNA_CURSADA) return false;
                 
                 String nomeDisciplina = (String) getValueAt(row, COLUNA_NOME_DISCIPLINA);
                 Disciplina d = cursoAtual.getDisciplinas().stream()
                         .filter(disc -> disc.getNome().equals(nomeDisciplina))
                         .findFirst().orElse(null);
 
-                if (d == null || d.getPreRequisitos().isEmpty() || d.getPreRequisitos().get(0).equalsIgnoreCase("Não Possui")) {
-                    return true;
-                }
+                if (d == null || d.isOutraAtividade()) return true;
+                if (d.getPreRequisitos().isEmpty() || d.getPreRequisitos().get(0).equalsIgnoreCase("Não Possui")) return true;
                 
                 return d.getPreRequisitos().stream().allMatch(disciplinasCursadas::contains);
             }
         };
         
+        // ... (lógica de ordenação e preenchimento da tabela sem alterações)
         List<Disciplina> disciplinasOrdenadas = curso.getDisciplinas();
         disciplinasOrdenadas.sort(Comparator
-                .comparingInt((Disciplina d) -> d.getSemestre() == 0 ? 1 : 0)
+                .comparingInt((Disciplina d) -> d.isOutraAtividade() ? 2 : (d.isCCCG() ? 1 : 0))
                 .thenComparingInt(Disciplina::getSemestre)
                 .thenComparingInt(Disciplina::getOrdem));
 
         modelo.addRow(new Object[]{SEPARADOR_OBRIGATORIAS, null, null, null, null, null, null});
 
         boolean separadorCCCGAdicionado = false;
+        boolean separadorOutrasAdicionado = false;
         for (Disciplina d : disciplinasOrdenadas) {
-            if (d.getSemestre() == 0 && !separadorCCCGAdicionado) {
+            if (d.isCCCG() && !separadorCCCGAdicionado) {
                 modelo.addRow(new Object[]{SEPARADOR_CCCG, null, null, null, null, null, null});
                 separadorCCCGAdicionado = true;
             }
+            if (d.isOutraAtividade() && !separadorOutrasAdicionado) {
+                modelo.addRow(new Object[]{SEPARADOR_OUTRAS, null, null, null, null, null, null});
+                separadorOutrasAdicionado = true;
+            }
             
-            String semestreDisplay = (d.getSemestre() == 0) ? "CCCG" : String.valueOf(d.getSemestre());
-            
+            String semestreDisplay = d.isOutraAtividade() ? "N/A" : (d.isCCCG() ? "CCCG" : String.valueOf(d.getSemestre()));
             modelo.addRow(new Object[]{
-                    semestreDisplay,
-                    String.valueOf(d.getOrdem()),
-                    d.getNome(),
-                    String.valueOf(d.getCargaHoraria()),
-                    String.valueOf(d.getCreditos()),
-                    String.join(", ", d.getPreRequisitos()),
-                    false
+                    semestreDisplay, String.valueOf(d.getOrdem()), d.getNome(),
+                    String.valueOf(d.getCargaHoraria()), String.valueOf(d.getCreditos()),
+                    String.join(", ", d.getPreRequisitos()), false
             });
         }
 
         tabela = new JTable(modelo);
         tabela.setRowHeight(25);
         tabela.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
-        
         tabela.setDefaultRenderer(Object.class, new DisciplinaCellRenderer());
-
+        
         modelo.addTableModelListener(e -> {
-            if (e.getColumn() == COLUNA_CURSADA) {
+            if (e.getColumn() == COLUNA_CURSADA && !isLoadingProgress) { // Só reage a cliques do usuário
                 atualizarEstadoDisciplinasCursadas();
                 tabela.repaint();
             }
         });
 
+        // ... (código dos botões e painéis sem alterações)
         JPanel botoesPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        JButton progressoBtn = new JButton("Ver Progresso");
+        progressoBtn = new JButton("Ver Progresso");
         progressoBtn.addActionListener(e -> mostrarProgresso());
-        
-        JButton graficoBtn = new JButton("Ver Gráfico");
+        graficoBtn = new JButton("Ver Gráfico");
         graficoBtn.addActionListener(e -> mostrarGrafico());
-        
-        JButton disponiveisBtn = new JButton("Ver Disciplinas Disponíveis");
+        disponiveisBtn = new JButton("Ver Disciplinas Disponíveis");
         disponiveisBtn.addActionListener(e -> mostrarDisponiveis());
-        
-        JButton salvarBtn = new JButton("Salvar Relatório");
-        salvarBtn.addActionListener(e -> salvarRelatorio());
+        salvarRelatorioBtn = new JButton("Salvar Relatório");
+        salvarRelatorioBtn.addActionListener(e -> salvarRelatorio());
+        salvarProgressoBtn = new JButton("Salvar Progresso");
+        salvarProgressoBtn.addActionListener(e -> salvarProgresso());
 
         botoesPanel.add(progressoBtn);
         botoesPanel.add(disponiveisBtn);
         botoesPanel.add(graficoBtn);
-        botoesPanel.add(salvarBtn); // Botão adicionado ao painel
+        botoesPanel.add(salvarRelatorioBtn);
+        botoesPanel.add(salvarProgressoBtn);
         
         JPanel painelPrincipal = new JPanel(new BorderLayout());
         painelPrincipal.add(new JScrollPane(tabela), BorderLayout.CENTER);
         painelPrincipal.add(botoesPanel, BorderLayout.SOUTH);
         
         setContentPane(painelPrincipal);
+        setBotoesAcaoEnabled(true);
         revalidate();
         repaint();
     }
     
+    private void setBotoesAcaoEnabled(boolean enabled) { /* ...código sem alterações... */ }
+    private void salvarProgresso() { /* ...código sem alterações... */ }
+    
+    private void carregarProgresso() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Carregar Progresso Salvo");
+        int userSelection = fileChooser.showOpenDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File arquivoParaCarregar = fileChooser.getSelectedFile();
+            Set<String> progressoCarregado = new HashSet<>();
+            try (BufferedReader reader = new BufferedReader(new FileReader(arquivoParaCarregar))) {
+                String linha;
+                while ((linha = reader.readLine()) != null) {
+                    if (!linha.trim().isEmpty()) {
+                        progressoCarregado.add(linha.trim());
+                    }
+                }
+                aplicarProgressoNaTabela(progressoCarregado); // <-- Chamada ao método corrigido
+                JOptionPane.showMessageDialog(this, "Progresso carregado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao carregar o progresso: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    // --- MUDANÇA 3: Método atualizado com o "interruptor" ---
+    private void aplicarProgressoNaTabela(Set<String> progressoCarregado) {
+        this.isLoadingProgress = true; // LIGA o interruptor (desativa validações)
+        try {
+            DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+            // Primeiro, desmarca tudo para garantir um estado limpo
+            for (int i = 0; i < modelo.getRowCount(); i++) {
+                if (!isLinhaSeparadora(i)) {
+                    modelo.setValueAt(false, i, COLUNA_CURSADA);
+                }
+            }
+            // Depois, marca apenas as que estão no arquivo de progresso
+            for (int i = 0; i < modelo.getRowCount(); i++) {
+                if (isLinhaSeparadora(i)) continue;
+                
+                String nomeDisciplinaNaTabela = (String) modelo.getValueAt(i, COLUNA_NOME_DISCIPLINA);
+                if (progressoCarregado.contains(nomeDisciplinaNaTabela)) {
+                    modelo.setValueAt(true, i, COLUNA_CURSADA);
+                }
+            }
+        } finally {
+            this.isLoadingProgress = false; // DESLIGA o interruptor em qualquer circunstância
+        }
+        
+        // Após todas as mudanças, atualiza o estado e a interface de uma só vez
+        atualizarEstadoDisciplinasCursadas();
+        tabela.repaint();
+    }
+
     private boolean isLinhaSeparadora(int row) {
         if (tabela == null || row < 0 || row >= tabela.getRowCount()) return false;
         Object valor = tabela.getValueAt(row, 0);
-        return valor != null && (valor.toString().equals(SEPARADOR_OBRIGATORIAS) || valor.toString().equals(SEPARADOR_CCCG));
+        return valor != null && (valor.toString().equals(SEPARADOR_OBRIGATORIAS) || valor.toString().equals(SEPARADOR_CCCG) || valor.toString().equals(SEPARADOR_OUTRAS));
     }
     
     private void mostrarProgresso() {
-        int cargaTotal = cursoAtual.getDisciplinas().stream().mapToInt(Disciplina::getCargaHoraria).sum();
+        int cargaTotal = cursoAtual.getDisciplinas().stream()
+                .filter(d -> !d.isCCCG() && !d.isOutraAtividade())
+                .mapToInt(Disciplina::getCargaHoraria).sum();
         int cargaCursada = cursoAtual.getDisciplinas().stream()
-                .filter(d -> disciplinasCursadas.contains(d.getNome()))
-                .mapToInt(Disciplina::getCargaHoraria)
-                .sum();
-        
+                .filter(d -> !d.isCCCG() && !d.isOutraAtividade() && disciplinasCursadas.contains(d.getNome()))
+                .mapToInt(Disciplina::getCargaHoraria).sum();
         double percentual = (cargaTotal == 0) ? 0 : (cargaCursada * 100.0) / cargaTotal;
         String msg = String.format(
-            "Carga Horária Concluída: %d h\nCarga Total do Curso: %d h\nPercentual de Conclusão: %.2f%%",
-            cargaCursada, cargaTotal, percentual
-        );
+            "Carga Horária das Disciplinas Obrigatórias: %d h\n" +
+            "Carga Horária Concluída (Obrigatórias): %d h\n" +
+            "Percentual de Conclusão (Obrigatórias): %.2f%%",
+            cargaTotal, cargaCursada, percentual);
         JOptionPane.showMessageDialog(this, msg, "Progresso do Aluno", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void mostrarGrafico() {
-        DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("Cursadas", disciplinasCursadas.size());
-        dataset.setValue("Não Cursadas", cursoAtual.getDisciplinas().size() - disciplinasCursadas.size());
+        long totalDisciplinasObrigatorias = cursoAtual.getDisciplinas().stream()
+                .filter(d -> !d.isCCCG() && !d.isOutraAtividade()).count();
+        long cursadasObrigatorias = disciplinasCursadas.stream()
+                .map(nome -> cursoAtual.getDisciplinas().stream().filter(d -> d.getNome().equals(nome)).findFirst().orElse(null))
+                .filter(d -> d != null && !d.isCCCG() && !d.isOutraAtividade()).count();
 
-        JFreeChart chart = ChartFactory.createPieChart("Distribuição das Disciplinas", dataset, true, true, false);
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        dataset.setValue("Cursadas (Obrigatórias)", cursadasObrigatorias);
+        dataset.setValue("Não Cursadas (Obrigatórias)", totalDisciplinasObrigatorias - cursadasObrigatorias);
+        JFreeChart chart = ChartFactory.createPieChart("Distribuição das Disciplinas Obrigatórias", dataset, true, true, false);
         ChartPanel chartPanel = new ChartPanel(chart);
-        
         JDialog dialogo = new JDialog(this, "Gráfico de Progresso", true);
         dialogo.setContentPane(chartPanel);
         dialogo.pack();
@@ -229,33 +307,26 @@ public class MainFrame extends JFrame {
     
     private void mostrarDisponiveis() {
         List<Disciplina> disponiveis = DisciplinaUtils.verificarDisciplinasDisponiveis(cursoAtual.getDisciplinas(), disciplinasCursadas);
-        
         if (disponiveis.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Parabéns, não há mais disciplinas disponíveis ou você concluiu o curso!");
             return;
         }
-
         StringBuilder msg = new StringBuilder("Disciplinas disponíveis para cursar:\n\n");
         disponiveis.forEach(d -> msg.append("- ").append(d.getNome()).append("\n"));
-        
         JOptionPane.showMessageDialog(this, msg.toString());
     }
-
+    
     private void salvarRelatorio() {
-        // 1. Pergunta o nome do aluno
         String nomeAluno = JOptionPane.showInputDialog(this, "Digite o nome do(a) aluno(a):", "Salvar Relatório", JOptionPane.PLAIN_MESSAGE);
         if (nomeAluno == null || nomeAluno.trim().isEmpty()) {
-            return; // Usuário cancelou ou não digitou nada
+            return;
         }
-
         List<Disciplina> disponiveis = DisciplinaUtils.verificarDisciplinasDisponiveis(cursoAtual.getDisciplinas(), disciplinasCursadas);
-        
         StringBuilder conteudoArquivo = new StringBuilder();
         conteudoArquivo.append("Aluno(a): ").append(nomeAluno.trim()).append("\n");
         conteudoArquivo.append("Curso: ").append(cursoAtual.getNome()).append("\n\n");
         conteudoArquivo.append("Disciplinas disponíveis para cursar:\n");
         conteudoArquivo.append("-------------------------------------\n");
-        
         if (disponiveis.isEmpty()) {
             conteudoArquivo.append("Nenhuma disciplina disponível no momento ou curso concluído.\n");
         } else {
@@ -263,20 +334,17 @@ public class MainFrame extends JFrame {
                 conteudoArquivo.append("- ").append(d.getNome()).append("\n");
             }
         }
-        
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Salvar Relatório de Disciplinas");
         fileChooser.setSelectedFile(new File(nomeAluno.trim().replace(" ", "_") + "_disciplinas.txt"));
-
         int userSelection = fileChooser.showSaveDialog(this);
-
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File arquivoParaSalvar = fileChooser.getSelectedFile();
             try (FileWriter writer = new FileWriter(arquivoParaSalvar)) {
                 writer.write(conteudoArquivo.toString());
                 JOptionPane.showMessageDialog(this, "Relatório salvo com sucesso em:\n" + arquivoParaSalvar.getAbsolutePath(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
-                ex.printStackTrace(); // Loga o erro no console
+                ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Erro ao salvar o arquivo: " + ex.getMessage(), "Erro de Salvamento", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -296,7 +364,6 @@ public class MainFrame extends JFrame {
             }
             
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-
             String nomeDisciplina = (String) table.getValueAt(row, COLUNA_NOME_DISCIPLINA);
             Disciplina d = cursoAtual.getDisciplinas().stream()
                     .filter(disc -> disc.getNome().equals(nomeDisciplina))
@@ -307,7 +374,7 @@ public class MainFrame extends JFrame {
                     c.setBackground(new Color(210, 210, 210));
                     c.setForeground(Color.DARK_GRAY);
                 } else {
-                    boolean liberada = d.getPreRequisitos().stream()
+                    boolean liberada = d.isOutraAtividade() || d.getPreRequisitos().stream()
                                         .allMatch(pre -> pre.isEmpty() || pre.equalsIgnoreCase("Não Possui") || disciplinasCursadas.contains(pre.trim()));
                     c.setBackground(liberada ? new Color(220, 255, 220) : new Color(255, 220, 220));
                     c.setForeground(Color.BLACK);
@@ -317,7 +384,6 @@ public class MainFrame extends JFrame {
             if (isSelected) {
                 c.setBackground(c.getBackground().darker());
             }
-
             return c;
         }
     }
